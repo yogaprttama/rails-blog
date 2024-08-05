@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rails Blog Example</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+    <div id="root">
+      <% if notice %>
+        <p class="notice bg-yellow-50 text-yellow-700 text-center"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert bg-red-50 text-red-700 text-center"><%= alert %></p>
+      <% end %>
+      <header class="app-header bg-white">
+        <div class="mx-auto max-w-5xl px-5">
+          <div class="flex h-14 justify-between lg:h-16">
+            <div class="flex shrink-0 items-center">
+              <img alt="Your Company" src="/assets/logo_blog.png" class="block h-8 w-auto" />
+            </div>
+            <nav class="flex items-center gap-x-3">
+              <% if user_signed_in? %>
+                <div class="relative" data-controller="button" data-button-toggle-class="in">
+                  <button type="button" class="flex items-center" data-action="click->button#toggle">
+                    <img src="/assets/avatar_placeholder.png" alt="Profile Image" class="h-8 w-8 rounded-full" />
+                  </button>
+                  <div class="absolute right-0 z-10 mt-1 w-48 origin-top-right rounded bg-white py-1 shadow-lg ring-1 ring-gray-300 lg:mt-2 collapse" data-button-target="reveal">
+                    <%= link_to "Your Profile", edit_user_registration_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                    <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                  </div>
+                </div>
+              <% else %>
+                <%= link_to "Log in", new_user_session_path, class: "btn text-neutral-500 px-3 py-2 hover:text-gray-900" %>
+                <%= link_to "Sign up", new_user_registration_path, class: "btn bg-orange-500 text-white px-3 py-2 hover:bg-orange-600" %>
+              <% end %>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <div class="mx-auto max-w-5xl px-5 pt-10">
+        <%= yield %>
+      </div>
+      <div class="app-footer bg-white mt-10 py-5">
+        <div class="mx-auto max-w-5xl px-5">
+          <p class="text-sm text-center text-gray-500">© 2024, Built with <a href="https://rubyonrails.org/" class="text-orange-500">Rails</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

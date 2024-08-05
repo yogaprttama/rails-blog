@@ -1,0 +1,9 @@
+<main class="mx-auto max-w-2.5xl" id="main">
+  <article class="relative pt-7">
+    <h1 class="text-lg font-semibold leading-6 text-gray-900"><%= @post.title %></h1>
+    <time class="absolute top-0 inset-x-0 text-xs text-gray-500"><%= @post.created_at.strftime("%b %d, %Y") %></time>
+    <div class="mt-5 prose prose-slate">
+      <%== @post.content %>
+    </div>
+  </article>
+</main>
